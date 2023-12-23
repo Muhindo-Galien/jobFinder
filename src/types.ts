@@ -1,20 +1,21 @@
-import {int64, nat64, Null, Opt, Principal, Record, text, Variant, Vec} from "azle";
+
+import { int64, nat64, Null, Opt, Principal, Record, text, Vec, Enum } from "azle";
 
 const Category = Record({
-  name: text
-})
+  name: text,
+});
 
-const Level = Variant({
-  Entry: Null,
-  Intermediate: Null,
-  Expert: Null
-})
+enum Level {
+  Entry,
+  Intermediate,
+  Expert,
+}
 
-const Payment = Variant({
-  Hourly: Null,
-  Monthly: Null,
-  Fixed: Null
-})
+enum Payment {
+  Hourly,
+  Monthly,
+  Fixed,
+}
 
 export const User = Record({
   id: Principal,
@@ -24,16 +25,16 @@ export const User = Record({
   username: text,
   email: text,
   phone: text,
-  password: text
-})
+  password: text,
+});
 
 export const UserPayload = Record({
   name: text,
   username: text,
   email: text,
   phone: text,
-  password: text
-})
+  password: text,
+});
 
 export const Job = Record({
   id: text,
@@ -48,23 +49,23 @@ export const Job = Record({
   title: text,
   description: text,
   price: int64,
-  level: Level,
-  payment: Payment,
-  skills: Vec(Category)
-})
+  level: Enum(Level),
+  payment: Enum(Payment),
+  skills: Vec(Category),
+});
 
 export const JobPayload = Record({
   title: text,
   description: text,
   price: int64,
-  level: Level,
-  payment: Payment,
-  skills: Vec(Category)
-})
+  level: Enum(Level),
+  payment: Enum(Payment),
+  skills: Vec(Category),
+});
 
-export const Error = Variant({
+export const Error = Record({
   NotFound: text,
   InvalidPayload: text,
   AuthenticationError: text,
-  DuplicateUser: text
-})
+  DuplicateUser: text,
+});
